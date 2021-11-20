@@ -1,20 +1,20 @@
-import { todoObj } from "./todoObj.js";
+import { todoObj } from "./objectFunctions.js";
 import {
-  handleForm,
+  displayOrHideForm,
   addTaskToPage,
-  handleToDo,
+  displayOrHideToDo,
   clearToDoList,
 } from "./DOMfunctions.js";
-import { taskList } from "./todoObj.js";
+import { dictOfProjects } from "./projectFunctions.js";
 import { validateData } from "./formValidation.js";
-import { dictOfProjects } from "./addProject.js";
+// import { dictOfProjects } from "./projectFunctions.js";
 
-function callDOMfunctions() {
-  handleForm("none");
-  handleToDo("block");
+function callDOMfunctions(projectName) {
+  displayOrHideForm("none");
+  displayOrHideToDo("block");
   clearToDoList();
 
-  addTaskToPage(taskList);
+  addTaskToPage(dictOfProjects[projectName]);
 }
 
 function getValues(e) {
@@ -23,30 +23,28 @@ function getValues(e) {
   let description = document.querySelector("#description");
   let dueDate = document.querySelector("#duedate");
   let selected = document.querySelector("#priority");
+  let projectName = document.querySelector("h2").textContent;
 
-  let whichProject = document.querySelector("h2");
   // Create object from these values and add them to the list
 
   let invalid = validateData(title, description, dueDate, selected);
   if (invalid == 0) {
-    if (whichProject.textContent == "Current") {
-      todoObj(title.value, description.value, dueDate.value, selected.value);
-    } else {
-      todoObj(
-        title.value,
-        description.value,
-        dueDate.value,
-        selected.value,
-        dictOfProjects[whichProject]
-      );
-    }
-
-    title.value = "";
-    description.value = "";
-    dueDate.value = "";
-    selected.value = "Select value";
-    callDOMfunctions();
+    todoObj(
+      title.value,
+      description.value,
+      dueDate.value,
+      selected.value,
+      projectName
+    );
+  } else {
+    return;
   }
+
+  title.value = "";
+  description.value = "";
+  dueDate.value = "";
+  selected.value = "Select value";
+  callDOMfunctions(projectName);
 }
 
 export { getValues };

@@ -1,6 +1,10 @@
 import { validateProjectForm } from "./formValidation.js";
-import { todoObj, taskList } from "./todoObj.js";
-import { showProjectTasks } from "./showProjectTasks.js";
+import {
+  addTaskToPage,
+  displayOrHideForm,
+  displayOrHideToDo,
+  clearToDoList,
+} from "./DOMfunctions.js";
 
 let addProject = document.querySelector(".addproject");
 let projects = document.querySelector(".projects");
@@ -11,53 +15,54 @@ function hideAddProject(e) {
   addProject.style.display = "block";
 }
 
-//idk how to continue
 let dictOfProjects = {};
-function createList(projectInput) {
-  dictOfProjects[projectInput] = [];
+
+function createList(projectName) {
+  dictOfProjects[projectName] = [];
+  clearToDoList();
+  addTaskToPage(dictOfProjects[projectName]);
 }
 
 function showTasksInProject() {
   let nameOfProject = document.querySelector("h2");
-  let keyInDict = this.firstChild.textContent;
-
-  nameOfProject.textContent = keyInDict;
-  // dictOfProjects[keyInDict].push("ahoj", "cau", "kraska", "2");
-
-  let title = "ahoj";
-  let description = "cau";
-  let dueDate = "kraska";
-  let priority = "2";
-  todoObj(title, description, dueDate, priority, dictOfProjects[keyInDict]);
-
-  showProjectTasks(dictOfProjects[keyInDict]);
+  let projectName = this.firstChild.textContent;
+  nameOfProject.textContent = projectName;
+  displayOrHideForm("none");
+  displayOrHideToDo("block");
+  clearToDoList();
+  addTaskToPage(dictOfProjects[projectName]);
 }
 
+// this shows all projects in the sidebar after deletion
 function showProjects() {
   removeProjectsFromDOM();
   for (let key in dictOfProjects) {
-    let addedProjectLeft = document.createElement("div");
-    let addedProject = document.createElement("div");
-    let btn = document.createElement("button");
-    addedProjectLeft.innerHTML = `<i class="fas fa-tasks"></i>`;
-    addedProjectLeft.append(key);
-    addedProjectLeft.className = "addedprojectleft";
-    btn.className = "btn btn-close";
-    btn.setAttribute("data-delete", key);
-    addedProject.append(addedProjectLeft, btn);
-    addedProject.className = "addedproject";
-    projects.insertBefore(addedProject, addProject);
-    addedProject.addEventListener("click", showTasksInProject);
-    btn.addEventListener("click", removeProjectFromDict);
+    if (key != "Current") {
+      let addedProjectLeft = document.createElement("div");
+      let addedProject = document.createElement("div");
+      let btn = document.createElement("button");
+      addedProjectLeft.innerHTML = `<i class="fas fa-tasks"></i>`;
+      addedProjectLeft.append(key);
+      addedProjectLeft.className = "addedprojectleft";
+      btn.className = "btn btn-close";
+      btn.setAttribute("data-delete", key);
+      addedProject.append(addedProjectLeft, btn);
+      addedProject.className = "addedproject";
+      projects.insertBefore(addedProject, addProject);
+      addedProject.addEventListener("click", showTasksInProject);
+      btn.addEventListener("click", removeProjectFromDict);
+    }
   }
 }
 
+//this function delete todo obj from project obj
 function removeProjectFromDict(e) {
   let key = e.target.getAttribute("data-delete");
   delete dictOfProjects[key];
   showProjects();
 }
 
+// this function removes project from DOM
 function removeProjectsFromDOM() {
   let projects = document.querySelectorAll(".addedproject");
   projects.forEach((project) => {
@@ -66,16 +71,16 @@ function removeProjectsFromDOM() {
 }
 
 function addProjectToDOM(e) {
-  let projectInput = document.getElementById("projectinput").value;
+  let projectName = document.getElementById("projectinput").value;
+  createList(projectName);
 
-  createList(projectInput);
-
-  if (validateProjectForm(projectInput)) {
+  if (validateProjectForm(projectName)) {
     hideAddProject();
     showProjects();
   }
 }
 
+// This function is showing that add project form on the side
 function addQuery(e) {
   addProject.style.display = "none";
 
@@ -103,4 +108,4 @@ function addQuery(e) {
   btnCancel.addEventListener("click", hideAddProject);
 }
 
-export { addQuery, dictOfProjects };
+export { addQuery, showProjects, dictOfProjects };

@@ -49,12 +49,12 @@ main {
   justify-content: center;
 }
 
-.newtasks {
+.current {
   padding: 1em 0;
   display: inline-block;
 }
 
-.newtasks:hover {
+.current:hover {
   cursor: pointer;
   transform: scale(1.1);
 }

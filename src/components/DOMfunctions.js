@@ -1,25 +1,20 @@
-import { removeFromObj } from "./todoObj.js";
-
-function handleForm(action) {
-  document.querySelector(".todos").style.display = action;
-}
-
-function handleToDo(action) {
-  document.querySelector(".addedtodo").style.display = action;
-}
-
+import { removeFromObj } from "./objectFunctions.js";
+import { dictOfProjects } from "./projectFunctions.js";
 let removedElement = false;
+
 function removeToDo(e) {
+  let project = document.querySelector("h2").textContent;
   let index = e.target.getAttribute("data-delete");
-  let newTaskList = removeFromObj(index);
   let tasks = document.querySelector(".tasks");
+  let updatedDict = removeFromObj(project, index);
+
   tasks.removeChild(tasks.lastChild);
   removedElement = true;
   document.querySelectorAll(".wrapper").forEach((task) => {
     let parent = task.parentNode;
     parent.removeChild(task);
   });
-  addTaskToPage(newTaskList);
+  addTaskToPage(updatedDict);
 }
 
 function rollDown(e) {
@@ -56,20 +51,6 @@ function clearToDoList() {
       tasks.removeChild(tasks.firstChild);
     }
   }
-}
-
-let whichProject;
-function hideTasks() {
-  whichProject = document.querySelector("h2");
-  console.log(whichProject.textContent);
-  handleToDo("none");
-  handleForm("block");
-}
-
-function displayCurrentTasks() {
-  document.querySelector("h2").textContent = "Current";
-  handleForm("none");
-  handleToDo("block");
 }
 
 function addTaskToPage(taskList) {
@@ -112,11 +93,35 @@ function addTaskToPage(taskList) {
   tasks.append(buttonDiv);
 }
 
+// -----//
+
+function displayOrHideForm(action) {
+  document.querySelector(".todos").style.display = action;
+}
+
+function displayOrHideToDo(action) {
+  document.querySelector(".addedtodo").style.display = action;
+}
+
+function hideTasks() {
+  displayOrHideToDo("none");
+  displayOrHideForm("block");
+}
+
+function displayCurrentTasks() {
+  document.querySelector("h2").textContent = "Current";
+  clearToDoList();
+  addTaskToPage(dictOfProjects["Current"]);
+  displayOrHideForm("none");
+  displayOrHideToDo("block");
+}
+
+//--//
+
 export {
-  handleForm,
+  displayOrHideForm,
   addTaskToPage,
-  handleToDo,
+  displayOrHideToDo,
   clearToDoList,
   displayCurrentTasks,
-  whichProject,
 };

@@ -1,3 +1,5 @@
+// Validation of Form, and displaying and removing alert-danger div
+
 function addWarning(nodeName, selector) {
   let div = document.createElement("div");
   div.textContent = `Please insert ${nodeName}`;
