@@ -58,9 +58,18 @@ function clearToDoList() {
   }
 }
 
-function hideTasks(e) {
+let whichProject;
+function hideTasks() {
+  whichProject = document.querySelector("h2");
+  console.log(whichProject.textContent);
   handleToDo("none");
   handleForm("block");
+}
+
+function displayCurrentTasks() {
+  document.querySelector("h2").textContent = "Current";
+  handleForm("none");
+  handleToDo("block");
 }
 
 function addTaskToPage(taskList) {
@@ -103,4 +112,11 @@ function addTaskToPage(taskList) {
   tasks.append(buttonDiv);
 }
 
-export { handleForm, addTaskToPage, handleToDo, clearToDoList };
+export {
+  handleForm,
+  addTaskToPage,
+  handleToDo,
+  clearToDoList,
+  displayCurrentTasks,
+  whichProject,
+};

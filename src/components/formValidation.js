@@ -5,13 +5,26 @@ function addWarning(nodeName, selector) {
   document.querySelector(`${selector}`).after(div);
 }
 
-function validateData(title, description, date, priority) {
+function validateProjectForm(projectInput) {
+  checkIfDangerDisplayed();
+  if (projectInput == "") {
+    addWarning("project", "#projectinput");
+    return false;
+  }
+  return true;
+}
+
+function checkIfDangerDisplayed() {
   let dangerAlreadyDisplayed = document.querySelectorAll(".alert-danger");
   if (dangerAlreadyDisplayed.length > 0) {
     dangerAlreadyDisplayed.forEach((div) => {
       div.parentNode.removeChild(div);
     });
   }
+}
+
+function validateData(title, description, date, priority) {
+  checkIfDangerDisplayed();
 
   let invalid = 0;
   if (title.value == "") {
@@ -33,4 +46,4 @@ function validateData(title, description, date, priority) {
   return invalid;
 }
 
-export { validateData };
+export { validateData, validateProjectForm };

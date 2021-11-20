@@ -7,34 +7,7 @@ import {
 } from "./DOMfunctions.js";
 import { taskList } from "./todoObj.js";
 import { validateData } from "./formValidation.js";
-
-// let taskList = [];
-// let todo1 = {
-//   title: "1",
-//   description: "des1",
-//   date: "2015-14-32",
-//   priority: 1,
-// };
-
-// let todo2 = {
-//   title: "2",
-//   description: "des2",
-//   date: "2015-14-32",
-//   priority: 2,
-// };
-// let todo3 = {
-//   title: "3sdfdsfsadsadsad",
-//   description: "des3",
-//   date: "2015-14-32",
-//   priority: 3,
-// };
-
-// taskList.push(todo1, todo2, todo3);
-
-// function removeFromObj(index) {
-//   taskList.splice(index, 1);
-//   return taskList;
-// }
+import { dictOfProjects } from "./addProject.js";
 
 function callDOMfunctions() {
   handleForm("none");
@@ -51,11 +24,23 @@ function getValues(e) {
   let dueDate = document.querySelector("#duedate");
   let selected = document.querySelector("#priority");
 
+  let whichProject = document.querySelector("h2");
   // Create object from these values and add them to the list
 
   let invalid = validateData(title, description, dueDate, selected);
   if (invalid == 0) {
-    todoObj(title.value, description.value, dueDate.value, selected.value);
+    if (whichProject.textContent == "Current") {
+      todoObj(title.value, description.value, dueDate.value, selected.value);
+    } else {
+      todoObj(
+        title.value,
+        description.value,
+        dueDate.value,
+        selected.value,
+        dictOfProjects[whichProject]
+      );
+    }
+
     title.value = "";
     description.value = "";
     dueDate.value = "";

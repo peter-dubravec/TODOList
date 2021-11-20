@@ -6,9 +6,13 @@ function createObject(title, description, duedate, priority) {
   return { title, description, duedate, priority };
 }
 
-function todoObj(title, description, duedate, priority) {
+function todoObj(title, description, duedate, priority, dictOfProject) {
   let obj = createObject(title, description, duedate, priority);
-  taskList.push(obj);
+  if (!dictOfProject) {
+    taskList.push(obj);
+  } else {
+    dictOfProject.push(obj)
+  }
 }
 
 function removeFromObj(index) {
@@ -16,4 +20,4 @@ function removeFromObj(index) {
   return taskList;
 }
 
-export { todoObj, taskList, removeFromObj};
+export { todoObj, taskList, removeFromObj };
