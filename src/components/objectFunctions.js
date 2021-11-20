@@ -1,4 +1,4 @@
-import { dictOfProjects } from "./projectFunctions.js";
+import { dictOfProjects } from "../index.js";
 // Create object from values from Form, add them to the list
 
 function createObject(title, description, duedate, priority) {

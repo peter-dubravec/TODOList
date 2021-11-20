@@ -4,7 +4,9 @@ import {
   displayOrHideForm,
   displayOrHideToDo,
   clearToDoList,
+  displayCurrentTasks,
 } from "./DOMfunctions.js";
+import { dictOfProjects } from "../index.js";
 
 let addProject = document.querySelector(".addproject");
 let projects = document.querySelector(".projects");
@@ -15,25 +17,28 @@ function hideAddProject(e) {
   addProject.style.display = "block";
 }
 
-let dictOfProjects = {};
-
 function createList(projectName) {
   dictOfProjects[projectName] = [];
+  localStorage.setItem("projects", JSON.stringify(dictOfProjects));
   clearToDoList();
   addTaskToPage(dictOfProjects[projectName]);
 }
 
 function showTasksInProject() {
-  let nameOfProject = document.querySelector("h2");
-  let projectName = this.firstChild.textContent;
-  nameOfProject.textContent = projectName;
-  displayOrHideForm("none");
-  displayOrHideToDo("block");
-  clearToDoList();
-  addTaskToPage(dictOfProjects[projectName]);
+  if (removedProject == false) {
+    let nameOfProject = document.querySelector("h2");
+    let projectName = this.firstChild.textContent;
+    nameOfProject.textContent = projectName;
+    displayOrHideForm("none");
+    displayOrHideToDo("block");
+    clearToDoList();
+    addTaskToPage(dictOfProjects[projectName]);
+  } else {
+    removedProject = false;
+  }
 }
 
-// this shows all projects in the sidebar after deletion
+// this shows all projects in the sidebar
 function showProjects() {
   removeProjectsFromDOM();
   for (let key in dictOfProjects) {
@@ -55,11 +60,15 @@ function showProjects() {
   }
 }
 
+let removedProject;
 //this function delete todo obj from project obj
 function removeProjectFromDict(e) {
   let key = e.target.getAttribute("data-delete");
   delete dictOfProjects[key];
+  localStorage.setItem("projects", JSON.stringify(dictOfProjects));
+  removedProject = true;
   showProjects();
+  displayCurrentTasks();
 }
 
 // this function removes project from DOM
@@ -73,7 +82,7 @@ function removeProjectsFromDOM() {
 function addProjectToDOM(e) {
   let projectName = document.getElementById("projectinput").value;
   createList(projectName);
-
+  document.querySelector("h2").textContent = projectName;
   if (validateProjectForm(projectName)) {
     hideAddProject();
     showProjects();
@@ -108,4 +117,4 @@ function addQuery(e) {
   btnCancel.addEventListener("click", hideAddProject);
 }
 
-export { addQuery, showProjects, dictOfProjects };
+export { addQuery, showProjects };

@@ -5,7 +5,9 @@ import {
   displayCurrentTasks,
   addTaskToPage,
 } from "./components/DOMfunctions.js";
-import { dictOfProjects, showProjects } from "./components/projectFunctions.js";
+import { showProjects } from "./components/projectFunctions.js";
+
+let dictOfProjects = {};
 
 let addtaskform = document.querySelector(".addtaskform");
 addtaskform.addEventListener("submit", getValues, false);
@@ -46,10 +48,13 @@ function storageAvailable(type) {
 if (storageAvailable("localStorage")) {
   if (localStorage.getItem("projects")) {
     let retrievedObject = localStorage.getItem("projects");
-    let dictOfProjects = JSON.parse(retrievedObject);
+    dictOfProjects = JSON.parse(retrievedObject);
     console.log(dictOfProjects);
     showProjects(dictOfProjects);
+    addTaskToPage(dictOfProjects["Current"]);
   }
 }
-
-// addTaskToPage(dictOfProjects);
+if (dictOfProjects.length < 1) {
+  addTaskToPage();
+}
+export { dictOfProjects };

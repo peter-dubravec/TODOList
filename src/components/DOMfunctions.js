@@ -1,5 +1,5 @@
 import { removeFromObj } from "./objectFunctions.js";
-import { dictOfProjects } from "./projectFunctions.js";
+import { dictOfProjects } from "../index.js";
 let removedElement = false;
 
 function removeToDo(e) {

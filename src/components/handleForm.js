@@ -5,9 +5,9 @@ import {
   displayOrHideToDo,
   clearToDoList,
 } from "./DOMfunctions.js";
-import { dictOfProjects } from "./projectFunctions.js";
+import { dictOfProjects } from "../index.js";
 import { validateData } from "./formValidation.js";
-// import { dictOfProjects } from "./projectFunctions.js";
+
 
 function callDOMfunctions(projectName) {
   displayOrHideForm("none");
