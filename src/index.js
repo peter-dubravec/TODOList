@@ -7,8 +7,8 @@ import {
 } from "./components/DOMfunctions.js";
 import { showProjects } from "./components/projectFunctions.js";
 import "./style.css";
-let dictOfProjects = {};
 
+let dictOfProjects = {};
 let addtaskform = document.querySelector(".addtaskform");
 addtaskform.addEventListener("submit", getValues, false);
 
@@ -49,12 +49,11 @@ if (storageAvailable("localStorage")) {
   if (localStorage.getItem("projects")) {
     let retrievedObject = localStorage.getItem("projects");
     dictOfProjects = JSON.parse(retrievedObject);
-    console.log(dictOfProjects);
     showProjects(dictOfProjects);
     addTaskToPage(dictOfProjects["Current"]);
+  } else {
+    addTaskToPage();
   }
 }
-if (dictOfProjects.length < 1) {
-  addTaskToPage();
-}
+
 export { dictOfProjects };
