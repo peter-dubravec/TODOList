@@ -81,11 +81,13 @@ function removeProjectsFromDOM() {
 
 function addProjectToDOM(e) {
   let projectName = document.getElementById("projectinput").value;
-  createList(projectName);
-  document.querySelector("h2").textContent = projectName;
   if (validateProjectForm(projectName)) {
+    createList(projectName);
+    document.querySelector("h2").textContent = projectName;
     hideAddProject();
     showProjects();
+    displayOrHideForm("none");
+    displayOrHideToDo("block");
   }
 }
 

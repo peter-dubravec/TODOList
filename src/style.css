@@ -137,9 +137,7 @@ textarea,
   justify-content: space-between;
   padding: 0.8em;
   font-size: 20px;
-
   box-shadow: 0px 2px #23424a;
-
   width: 80%;
   margin-bottom: 1em;
   margin-left: 1em;
@@ -182,8 +180,8 @@ textarea,
 .descriptiondiv {
   display: none;
   padding: 0.8em;
-  text-align: center;
   width: 100%;
+  box-shadow: 0px 0px 1px #23424a;
 }
 
 .actualtaskdiv {
@@ -213,7 +211,9 @@ textarea,
 
 .buttondiv {
   width: 80%;
-  margin-left: 0.9em;
+  margin-left: 15px;
+  display: flex;
+  justify-content: center;
 }
 
 .addtaskbutton {
@@ -221,7 +221,6 @@ textarea,
   padding: 0.5em 1em;
   text-align: center;
   border-radius: 5px;
-  margin: 0 auto;
 }
 
 #formsubmitbtn {
@@ -310,3 +309,22 @@ div.addedproject > button {
   transform: scale(1.1);
 }
 /* End of Add Project input  */
+
+/* end of project styling details */
+div.legend > span:nth-child(2) {
+  margin-left: 40px;
+}
+
+div.legend > span.spanshort {
+  margin-right: 25px;
+}
+
+span {
+  font-weight: bold;
+}
+
+div.addedtodo > h2 {
+  padding: 0.5em 0 0 30px;
+  font-weight: bold;
+}
+/* ----- */

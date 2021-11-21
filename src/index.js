@@ -6,7 +6,7 @@ import {
   addTaskToPage,
 } from "./components/DOMfunctions.js";
 import { showProjects } from "./components/projectFunctions.js";
-
+import "./style.css";
 let dictOfProjects = {};
 
 let addtaskform = document.querySelector(".addtaskform");

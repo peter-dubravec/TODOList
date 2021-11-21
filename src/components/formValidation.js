@@ -1,3 +1,4 @@
+import { dictOfProjects } from "../index.js";
 // Validation of Form, and displaying and removing alert-danger div
 
 function addWarning(nodeName, selector) {
@@ -9,6 +10,10 @@ function addWarning(nodeName, selector) {
 
 function validateProjectForm(projectInput) {
   checkIfDangerDisplayed();
+  if (projectInput in dictOfProjects) {
+    alert("Project already exists! Try different name!");
+    return;
+  }
   if (projectInput == "") {
     addWarning("project", "#projectinput");
     return false;

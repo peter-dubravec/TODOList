@@ -82,7 +82,8 @@ function addTaskToPage(taskList) {
         wrapperDiv.append(div);
       } else {
         descriptionDiv.className = "descriptiondiv";
-        descriptionDiv.textContent = taskList[i][j];
+        descriptionDiv.innerHTML =
+          "<span>Description: </span>" + taskList[i][j];
       }
     }
     wrapperDiv.append(descriptionDiv);
