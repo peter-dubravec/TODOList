@@ -5,6 +5,7 @@ import {
   displayOrHideToDo,
   clearToDoList,
   displayCurrentTasks,
+  handlePopUp,
 } from "./DOMfunctions.js";
 import { dictOfProjects } from "../index.js";
 
@@ -30,7 +31,7 @@ function showTasksInProject() {
     let projectName = this.firstChild.textContent;
     nameOfProject.textContent = projectName;
     displayOrHideForm("none");
-    displayOrHideToDo("block");
+    displayOrHideToDo("flex");
     clearToDoList();
     addTaskToPage(dictOfProjects[projectName]);
   } else {
@@ -55,18 +56,37 @@ function showProjects() {
       addedProject.className = "addedproject";
       projects.insertBefore(addedProject, addProject);
       addedProject.addEventListener("click", showTasksInProject);
-      btn.addEventListener("click", removeProjectFromDict);
+      btn.addEventListener("click", dispayPopUp);
     }
   }
 }
 
 let removedProject;
 //this function delete todo obj from project obj
-function removeProjectFromDict(e) {
+function dispayPopUp(e) {
   let key = e.target.getAttribute("data-delete");
+  handlePopUp("flex", key);
+  let btnYes = document.querySelector(".btnyes");
+  let btnNo = document.querySelector(".btnno");
+  let btnClose = document.querySelector(".popup__top .btn-close");
+
+  btnYes.addEventListener("click", deleteFromObjDict.bind(null, key));
+
+  btnClose.addEventListener("click", () => {
+    handlePopUp("none");
+  });
+
+  btnNo.addEventListener("click", function () {
+    handlePopUp("none");
+    return;
+  });
+}
+
+function deleteFromObjDict(key) {
   delete dictOfProjects[key];
   localStorage.setItem("projects", JSON.stringify(dictOfProjects));
   removedProject = true;
+  handlePopUp("none");
   showProjects();
   displayCurrentTasks();
 }
@@ -87,7 +107,7 @@ function addProjectToDOM(e) {
     hideAddProject();
     showProjects();
     displayOrHideForm("none");
-    displayOrHideToDo("block");
+    displayOrHideToDo("flex");
   }
 }
 

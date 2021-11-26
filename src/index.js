@@ -4,11 +4,13 @@ import { addQuery } from "./components/projectFunctions.js";
 import {
   displayCurrentTasks,
   addTaskToPage,
+  toggleBurgerButton,
 } from "./components/DOMfunctions.js";
 import { showProjects } from "./components/projectFunctions.js";
 import "./style.css";
 
 let dictOfProjects = {};
+dictOfProjects["Current"] = [];
 let addtaskform = document.querySelector(".addtaskform");
 addtaskform.addEventListener("submit", getValues, false);
 
@@ -16,7 +18,10 @@ let addProject = document.querySelector(".addproject");
 addProject.addEventListener("click", addQuery, false);
 
 let currentTask = document.querySelector(".current");
-currentTask.addEventListener("click", displayCurrentTasks);
+currentTask.addEventListener("click", displayCurrentTasks, false);
+
+let burgerButton = document.querySelector(".burger");
+burgerButton.addEventListener("click", toggleBurgerButton, false);
 
 function storageAvailable(type) {
   var storage;

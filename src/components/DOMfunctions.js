@@ -19,7 +19,6 @@ function removeToDo(e) {
 
 function rollDown(e) {
   if (removedElement == false) {
-    console.log(e.target);
     let element;
     if (e.target.className == "actualtaskdiv") {
       element = e.target;
@@ -30,7 +29,6 @@ function rollDown(e) {
     let descriptionDiv = document.querySelectorAll(".descriptiondiv");
 
     let index = element.getAttribute("data-index");
-    console.log(index);
     if (
       descriptionDiv[index].style.display == "" ||
       descriptionDiv[index].style.display == "none"
@@ -82,8 +80,7 @@ function addTaskToPage(taskList) {
         wrapperDiv.append(div);
       } else {
         descriptionDiv.className = "descriptiondiv";
-        descriptionDiv.innerHTML =
-          "<span>Description: </span>" + taskList[i][j];
+        descriptionDiv.innerHTML = `<span>Description: </span><p>${taskList[i][j]}</p>`;
       }
     }
     wrapperDiv.append(descriptionDiv);
@@ -114,7 +111,28 @@ function displayCurrentTasks() {
   clearToDoList();
   addTaskToPage(dictOfProjects["Current"]);
   displayOrHideForm("none");
-  displayOrHideToDo("block");
+  displayOrHideToDo("flex");
+}
+
+function handlePopUp(action, key) {
+  document.querySelector(".popupproject").textContent = `${key}`;
+  document.querySelector(".popup").style.display = action;
+}
+
+function toggleClasses() {
+  const burger = document.querySelector(".burger");
+  const actions = document.querySelector(".actions");
+  const addedProject = document.querySelector(".addedproject");
+  burger.classList.toggle("toggle");
+  burger.classList.toggle("burger-active");
+  actions.classList.toggle("actions-active");
+  addedProject.classList.toggle("addedproject-active");
+}
+
+function toggleBurgerButton() {
+  const burger = document.querySelector(".burger");
+  const actions = document.querySelector(".actions");
+  burger.addEventListener("click", toggleClasses);
 }
 
 //--//
@@ -125,4 +143,6 @@ export {
   displayOrHideToDo,
   clearToDoList,
   displayCurrentTasks,
+  handlePopUp,
+  toggleBurgerButton,
 };
