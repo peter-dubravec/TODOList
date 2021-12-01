@@ -141,13 +141,23 @@ textarea,
   display: flex;
   justify-content: space-between;
   padding: 0.8em;
-
   font-size: 20px;
   width: 80%;
 }
 
+.line {
+  height: 1px;
+  background-color: black;
+  width: 78%;
+  margin-bottom: -1px;
+}
+
 .divforeachelement {
   width: 150px;
+}
+
+.legend span {
+  text-align: center;
 }
 
 .spanlong {
@@ -161,11 +171,10 @@ textarea,
   width: 30px;
 }
 
-.divforeachelement:nth-child(1),
-.divforeachelement:nth-child(2) {
-  flex: 2;
-  flex-shrink: 0;
+.divforeachelement {
+  text-align: center;
 }
+
 .divforeachelement:nth-child(3) {
   width: 80px;
 }
@@ -214,15 +223,15 @@ textarea,
   margin-top: 2em;
   display: flex;
   justify-content: center;
-  margin-right: 16%;
 }
 
 .addtaskbutton {
   display: block;
-  width: 60%;
+  width: 25%;
   padding: 1em;
   text-align: center;
   border-radius: 5px;
+  margin-right: 30px;
 }
 
 #formsubmitbtn {
@@ -327,6 +336,7 @@ div.addedtodo > h2 {
 /* popup form */
 .popup {
   /* this will later be flex */
+  z-index: 99;
   display: none;
   position: absolute;
   width: 100%;
@@ -420,9 +430,9 @@ div.addedtodo > h2 {
     overflow-x: hidden;
   }
 
-  .addedproject {
-    transform: translateX(-28%);
-    transition: transform 0.5s cubic-bezier(0, 0, 0.22, 1.77);
+  .projects {
+    opacity: 0;
+    transition: all 0.5s ease-out;
   }
   .alert {
     position: unset;
@@ -436,7 +446,7 @@ div.addedtodo > h2 {
 
   .actions {
     transform: translateX(-70%);
-    transition: transform 0.5s cubic-bezier(0, 0, 0.22, 1.77);
+    transition: transform 0.5s ease-out;
     position: absolute;
     height: 100%;
   }
@@ -490,12 +500,12 @@ div.addedtodo > h2 {
   z-index: 9;
 }
 
-.addedproject-active {
-  transform: translateX(0%);
+.project-active {
+  opacity: 1;
 }
 
 div.legend > span:nth-child(1) {
-  flex: 2;
+  flex: 1;
 }
 div.legend > span:nth-child(2) {
   flex: 2;
@@ -505,7 +515,7 @@ div.legend > span:nth-child(3) {
 }
 
 div.actualtaskdiv > div:nth-child(1) {
-  flex: 2;
+  flex: 1;
 }
 
 div.actualtaskdiv > div:nth-child(2) {
@@ -514,8 +524,4 @@ div.actualtaskdiv > div:nth-child(2) {
 
 div.actualtaskdiv > div:nth-child(3) {
   flex: 1;
-}
-
-div.actualtaskdiv > div:nth-child(4) {
-  flex: 0.3;
 }

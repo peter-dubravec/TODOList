@@ -122,16 +122,15 @@ function handlePopUp(action, key) {
 function toggleClasses() {
   const burger = document.querySelector(".burger");
   const actions = document.querySelector(".actions");
-  const addedProject = document.querySelector(".addedproject");
+  const projects = document.querySelector(".projects");
   burger.classList.toggle("toggle");
   burger.classList.toggle("burger-active");
   actions.classList.toggle("actions-active");
-  addedProject.classList.toggle("addedproject-active");
+  projects.classList.toggle("project-active");
 }
 
 function toggleBurgerButton() {
   const burger = document.querySelector(".burger");
-  const actions = document.querySelector(".actions");
   burger.addEventListener("click", toggleClasses);
 }
 
